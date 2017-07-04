@@ -1,0 +1,49 @@
+name: brackets
+version: 1.9
+summary: Brackets is a modern code editor for HTML, CSS and JavaScript.
+description: |
+ Brackets is an open-source editor for web design and development
+ built on top of web technologies such as HTML, CSS and JavaScript.
+ The project was created and is maintained by Adobe, and is released
+ under an MIT License.
+
+grade: stable
+confinement: classic
+
+parts:
+  libgcrypt11-deb:
+    plugin: dump
+    source: http://de.archive.ubuntu.com/ubuntu/pool/main/libg/libgcrypt11/libgcrypt11_1.5.3-2ubuntu4.4_amd64.deb
+    source-type: deb
+
+  brackets:
+    plugin: dump
+    source: https://github.com/adobe/brackets/releases/download/release-$SNAPCRAFT_PROJECT_VERSION/Brackets.Release.$SNAPCRAFT_PROJECT_VERSION.64-bit.deb
+    source-type: deb
+    # Correct path to icon.
+    # Delete usr/bin/brackets, it is a broken symlink pointing outside the snap.
+    prepare: |
+      sed -i 's|Icon=brackets|Icon=/opt/brackets/appshell256\.png|g' opt/brackets/brackets.desktop
+      rm -f usr/bin/brackets
+    after:
+      - desktop-gtk2
+      - libgcrypt11-deb
+    stage-packages:
+      - gconf2
+      - libasound2
+      - libnotify4
+      - libnspr4
+      - libnss3
+      - libpulse0
+      - libxss1
+      - libxtst6
+  electron-launch:
+    plugin: dump
+    source: .
+    organize:
+      electron-launch: bin/electron-launch
+
+apps:
+  brackets:
+    command: bin/electron-launch classic ${SNAP}/opt/brackets/brackets
+    desktop: opt/brackets/brackets.desktop
