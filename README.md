@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-1/p200x200/148921_367335806634783_1535962940_n.jpg" alt="Brackets">
+  <img src="https://dashboard.snapcraft.io/site_media/appmedia/2017/07/brackets_256.png" alt="Brackets">
   <br />
   Brackets
 </h1>
@@ -15,7 +15,7 @@
 ## Install
 
     sudo apt install snapd-xdg-open
-    sudo snap install brackets --classic --edge
+    sudo snap install brackets --classic --beta
 
 ([Don't have snapd installed?](https://snapcraft.io/docs/core/install))
 
@@ -33,14 +33,14 @@ upstream so Brackets can authoritatively publish future releases.
 
   - [x] Fork the [Snapcrafters template]() repository to your own GitHub account
   - [x] Create a snap that runs in `devmode`
-  - [ ] Register the snap in the store, **using the preferred upstream name**
+  - [x] Register the snap in the store, **using the preferred upstream name**
   - [ ] Add a screenshot to this `README.md`
-  - [ ] Publish the `devmode` snap in the Snap store edge channel
-  - [ ] Add install instructions to this `README.md`
-  - [ ] Update snap store metadata, icons and screenshots
-  - [ ] Convert the snap to `strict` confinement, or `classic` confinement if it qualifies
-  - [ ] Publish the confined snap in the Snap store beta channel
-  - [ ] Update the install instructions in this `README.md`
+  - [x] Publish the `devmode` snap in the Snap store edge channel
+  - [x] Add install instructions to this `README.md`
+  - [x] Update snap store metadata, icons and screenshots
+  - [x] Convert the snap to `strict` confinement, or `classic` confinement if it qualifies
+  - [x] Publish the confined snap in the Snap store beta channel
+  - [x] Update the install instructions in this `README.md`
   - [ ] Post a call for testing on the [Snapcraft Forum](https://forum.snapcraft.io) - [link]()
   - [x] Request your GitHub repository is forked to the Snapcrafters organisation and configured for automated builds
   - [ ] Add the provided Snapcraft build badge to this `README.md`
@@ -53,7 +53,7 @@ upstream so Brackets can authoritatively publish future releases.
     - [ ] Request upstream create a Snap store account
     - [ ] Add upstream contact information to the `README.md`
     - [ ] Contact the Snap Advocacy team to request the snap be transferred to upstream
- - [ ] Ask the Snap Advocacy team to celebrate the snap - [link]()
+  - [ ] Ask the Snap Advocacy team to celebrate the snap - [link]()
 
 If you have any questions, [post in the Snapcraft forum](https://forum.snapcraft.io).
 
