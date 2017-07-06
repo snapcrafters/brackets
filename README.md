@@ -6,11 +6,9 @@
 
 <p align="center"><b>This is the snap for Brackets</b>, <i>"a modern code editor for HTML, CSS and JavaScript."</i>. It works on Ubuntu, Fedora, Debian, and other major Linux distributions.</p>
 
-<!--
 <p align="center">
 <a href="https://build.snapcraft.io/user/snapcrafters/brackets"><img src="https://build.snapcraft.io/badge/snapcrafters/brackets.svg" alt="Snap Status"></a>
 </p>
--->
 
 ## Install
 
