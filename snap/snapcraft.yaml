@@ -13,7 +13,7 @@ confinement: classic
 parts:
   libgcrypt11-deb:
     plugin: dump
-    source: http://de.archive.ubuntu.com/ubuntu/pool/main/libg/libgcrypt11/libgcrypt11_1.5.3-2ubuntu4.4_amd64.deb
+    source: http://de.archive.ubuntu.com/ubuntu/pool/main/libg/libgcrypt11/libgcrypt11_1.5.3-2ubuntu4.5_amd64.deb
     source-type: deb
 
   brackets:
