@@ -20,6 +20,7 @@ parts:
     prepare: |
       sed -i 's|Icon=brackets|Icon=/usr/share/icons/hicolor/scalable/apps/brackets\.svg|g' opt/brackets/brackets.desktop
       rm -f usr/bin/brackets
+      chmod -s opt/brackets/chrome-sandbox
     after:
       - desktop-gtk2
     stage-packages:
