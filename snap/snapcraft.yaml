@@ -1,5 +1,5 @@
 name: brackets
-version: '1.11-prerelease-1'
+version: '1.11-prerelease-2'
 summary: Brackets is a modern code editor for HTML, CSS and JavaScript.
 description: |
  Brackets is an open-source editor for web design and development
@@ -13,7 +13,7 @@ confinement: classic
 parts:
   brackets:
     plugin: dump
-    source: https://github.com/adobe/brackets/releases/download/release-1.11-prerelease-1/Brackets.Release.release-1.11-prerelease-1.64-bit.deb
+    source: https://github.com/adobe/brackets/releases/download/release-1.11-prerelease-2/Brackets.Release.release-1.11-prerelease-2.64-bit.deb
     source-type: deb
     # Correct path to icon.
     # Delete usr/bin/brackets, it is a broken symlink pointing outside the snap.
