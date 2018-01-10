@@ -16,7 +16,7 @@ parts:
     source: https://github.com/adobe/brackets/releases/download/release-1.11/Brackets.Release.1.11.64-bit.deb
     source-type: deb
     # Correct path to icon.
-    # Delete usr/bin/brackets, it is a broken symlink pointing outside the snap.
+    # Delete usr/bin/brackets, it's a broken symlink pointing outside the snap.
     prepare: |
       sed -i 's|Icon=brackets|Icon=/usr/share/icons/hicolor/scalable/apps/brackets\.svg|g' opt/brackets/brackets.desktop
       rm -f usr/bin/brackets
@@ -24,21 +24,22 @@ parts:
     after:
       - desktop-gtk2
     stage-packages:
-      - gconf2
       - libasound2
+      - libgconf2-4
       - libnotify4
       - libnspr4
       - libnss3
+      - libpcre3
       - libpulse0
       - libxss1
       - libxtst6
   electron-launch:
     plugin: dump
-    source: .
-    organize:
-      electron-launch: bin/electron-launch
+    source: files/
+    prepare: |
+      chmod +x bin/electron-launch
 
 apps:
   brackets:
-    command: bin/electron-launch classic ${SNAP}/opt/brackets/brackets
+    command: bin/electron-launch ${SNAP}/opt/brackets/brackets
     desktop: opt/brackets/brackets.desktop

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+[ -n "$XDG_RUNTIME_DIR" ] && mkdir -p $XDG_RUNTIME_DIR -m 700
+exec "$@" --executed-from="$(pwd)" --pid=$$ > /dev/null 2>&1 &
