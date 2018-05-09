@@ -1,5 +1,6 @@
 name: brackets
-version: '1.12'
+version: latest
+version-script: cat $SNAPCRAFT_STAGE/version
 summary: Brackets is a modern code editor for HTML, CSS and JavaScript.
 description: |
  Brackets is an open-source editor for web design and development
@@ -12,20 +13,46 @@ confinement: classic
 
 parts:
   brackets:
-    plugin: dump
-    source: https://github.com/adobe/brackets/releases/download/release-1.12/Brackets.Release.1.12.64-bit.deb
-    source-type: deb
-    # Correct path to icon.
-    # Delete usr/bin/brackets, it's a broken symlink pointing outside the snap.
-    prepare: |
-      sed -i 's|Icon=brackets|Icon=/usr/share/icons/hicolor/scalable/apps/brackets\.svg|g' opt/brackets/brackets.desktop
-      rm -f usr/bin/brackets
-      chmod -s opt/brackets/chrome-sandbox
-    after:
-      - desktop-gtk2
+    plugin: nil
+    override-build: |
+      snapcraftctl build
+      ARCHITECTURE=$(dpkg --print-architecture)
+      if [ "${ARCHITECTURE}" = "amd64" ]; then
+        FILTER="64-bit.deb"
+      elif [ "${ARCHITECTURE}" = "i386" ]; then
+        FILTER="32-bit.deb"
+      else
+        echo "ERROR! Brackets only produces debs for amd64 and i386. Failing the build here."
+        exit 1
+      fi
+      # Get the latest releases json
+      echo "Get GitHub releases..."
+      wget --quiet https://api.github.com/repos/adobe/brackets/releases/latest -O releases.json
+      # Get the version from the tag_name and the download URL.
+      VERSION=$(jq . releases.json | grep tag_name | cut -d'"' -f4 | sed s'/release-//')
+      DEB_URL=$(cat releases.json | jq -r ".assets[] | select(.name | test(\"${FILTER}\")) | .browser_download_url")
+      DEB=$(basename "${DEB_URL}")
+      echo "Downloading ${DEB_URL}..."
+      wget --quiet "${DEB_URL}" -O "${SNAPCRAFT_PART_INSTALL}/${DEB}"
+      echo "Unpacking ${DEB}..."
+      dpkg -x "${SNAPCRAFT_PART_INSTALL}/${DEB}" ${SNAPCRAFT_PART_INSTALL}
+      rm -f releases.json 2>/dev/null
+      rm -f "${SNAPCRAFT_PART_INSTALL}/${DEB}" 2>/dev/null
+      echo $VERSION > $SNAPCRAFT_STAGE/version
+      # Correct path to icon.
+      sed -i 's|Icon=brackets|Icon=/usr/share/icons/hicolor/scalable/apps/brackets\.svg|g' ${SNAPCRAFT_PART_INSTALL}/opt/brackets/brackets.desktop
+      # Delete usr/bin/brackets, it's a broken symlink pointing outside the snap.
+      rm -f ${SNAPCRAFT_PART_INSTALL}/usr/bin/brackets
+      chmod -s ${SNAPCRAFT_PART_INSTALL}/opt/brackets/chrome-sandbox
+    build-packages:
+      - dpkg
+      - jq
+      - sed
+      - wget
     stage-packages:
       - libasound2
       - libgconf2-4
+      - libgtk2.0-0
       - libnotify4
       - libnspr4
       - libnss3
@@ -36,10 +63,11 @@ parts:
   electron-launch:
     plugin: dump
     source: files/
-    prepare: |
+    override-build: |
+      snapcraftctl build
       chmod +x bin/electron-launch
 
 apps:
   brackets:
-    command: bin/electron-launch ${SNAP}/opt/brackets/brackets
+    command: bin/electron-launch ${SNAP}/opt/brackets/Brackets
     desktop: opt/brackets/brackets.desktop
