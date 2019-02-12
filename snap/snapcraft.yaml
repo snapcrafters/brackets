@@ -8,6 +8,10 @@ description: |
  The project was created and is maintained by Adobe, and is released
  under an MIT License.
 
+archiectures:
+  - build-on: i386
+  - build-on: amd64
+
 grade: stable
 confinement: classic
 
