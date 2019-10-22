@@ -53,7 +53,7 @@ parts:
 
   brackets:
     after:
-      - gnome-desktop-platform
+      - desktop-gnome-platform
     plugin: nil
     override-build: |
       snapcraftctl build
