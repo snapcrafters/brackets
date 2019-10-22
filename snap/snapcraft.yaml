@@ -7,6 +7,7 @@ description: |
  built on top of web technologies such as HTML, CSS and JavaScript.
  The project was created and is maintained by Adobe, and is released
  under an MIT License.
+base: core18
 
 grade: stable
 confinement: classic
